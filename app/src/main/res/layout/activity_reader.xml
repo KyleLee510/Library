@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReaderActivity"
+    android:id="@+id/background_reader">
+
+    <TextView
+        android:id="@+id/textView_reader"
+        android:layout_width="356dp"
+        android:layout_height="40dp"
+        android:text="Readers"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/background_reader"
+        app:layout_constraintRight_toLeftOf="@+id/button_addNewreader"
+        app:layout_constraintTop_toTopOf="@+id/background_reader"
+        app:layout_goneMarginLeft="0dp"
+        app:layout_goneMarginRight="0dp" />
+
+    <Button
+        android:id="@+id/button_addNewreader"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="49dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="+"
+        android:onClick="AddnewReader"
+        app:layout_constraintLeft_toRightOf="@+id/textView_reader"
+        app:layout_constraintRight_toRightOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/readerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="@+id/background_reader"
+        app:layout_constraintTop_toBottomOf="@+id/textView_reader">
+    </android.support.v7.widget.SearchView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewReaders"
+        android:layout_width="match_parent"
+        android:layout_height="509dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/background_reader"
+        app:layout_constraintRight_toRightOf="@+id/background_reader"
+        app:layout_constraintTop_toBottomOf="@+id/readerSearch">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/skipChoose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintTop_toBottomOf="@id/recycleViewReaders">
+
+        <Button
+            android:id="@+id/skipBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:text="B"
+            app:layout_constraintBottom_toTopOf="@+id/skipChoose"
+            app:layout_constraintLeft_toLeftOf="@+id/skipChoose"
+            app:layout_constraintTop_toBottomOf="@+id/skipChoose"
+            app:layout_constraintVertical_bias="0.582"
+            app:layout_goneMarginLeft="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Books"
+            app:layout_constraintLeft_toRightOf="@id/skipBook"
+            app:layout_constraintRight_toLeftOf="@id/skipBook"
+            app:layout_constraintTop_toBottomOf="@id/skipBook" />
+
+        <Button
+            android:id="@+id/skipCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="44dp"
+            android:text="D"
+            app:layout_constraintBottom_toTopOf="@+id/skipChoose"
+            app:layout_constraintLeft_toRightOf="@id/skipBook"
+            app:layout_constraintTop_toBottomOf="@+id/skipChoose"
+            app:layout_constraintVertical_bias="0.582"
+            app:layout_goneMarginLeft="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Camera"
+            app:layout_constraintLeft_toRightOf="@+id/skipCamera"
+            app:layout_constraintRight_toLeftOf="@+id/skipCamera"
+            app:layout_constraintTop_toBottomOf="@+id/skipCamera" />
+
+        <Button
+            android:id="@+id/skipReader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            app:layout_constraintBottom_toTopOf="@+id/skipChoose"
+            app:layout_constraintHorizontal_bias="0.705"
+            app:layout_constraintLeft_toRightOf="@+id/skipCamera"
+            app:layout_constraintRight_toRightOf="@id/skipChoose"
+            app:layout_constraintTop_toBottomOf="@+id/skipChoose"
+            app:layout_goneMarginLeft="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reader"
+            app:layout_constraintLeft_toRightOf="@+id/skipReader"
+            app:layout_constraintRight_toLeftOf="@+id/skipReader"
+            app:layout_constraintTop_toBottomOf="@+id/skipReader" />
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

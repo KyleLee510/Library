@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/add_book_background">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_info_background"
+        app:layout_constraintTop_toTopOf="@id/add_book_background"
+        app:layout_constraintLeft_toLeftOf="@id/add_book_background">
+        <TextView
+            android:id="@+id/ISBN_textView"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ISBN"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            app:layout_constraintLeft_toLeftOf="@id/add_info_background"
+            app:layout_constraintTop_toTopOf="@id/add_info_background" />
+        <EditText
+            android:id="@+id/isbn_Edit"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            app:layout_constraintRight_toLeftOf="@id/amount_Edit"
+            app:layout_constraintLeft_toRightOf="@id/amount_Edit"
+            app:layout_constraintBottom_toTopOf="@id/amount_Edit"  />
+
+        <TextView
+            android:id="@+id/amount_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Amount"
+            android:textSize="25dp"
+            app:layout_constraintLeft_toLeftOf="@id/add_info_background"
+            app:layout_constraintTop_toBottomOf="@id/ISBN_textView" />
+        <EditText
+            android:id="@+id/amount_Edit"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toRightOf="@id/amount_textView"
+            app:layout_constraintTop_toBottomOf="@id/isbn_Edit" />
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/submit_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/add_info_background"
+        app:layout_constraintRight_toLeftOf="@id/add_info_background"
+        app:layout_constraintLeft_toRightOf="@id/add_info_background">
+        <Button
+            android:id="@+id/bookSumbit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="submit"/>
+        <Button
+            android:id="@+id/bookCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancel"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

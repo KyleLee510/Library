@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/backBooks"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Back"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_constraintLeft_toLeftOf="@+id/background"/>
+
+
+    <TextView
+        android:id="@+id/textView_borrower"
+        android:layout_width="356dp"
+        android:layout_height="40dp"
+        android:text="the Borrower"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@+id/backBooks"
+        app:layout_constraintRight_toLeftOf="@+id/addNewbook"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_goneMarginLeft="0dp"
+        app:layout_goneMarginRight="0dp" />
+
+    <Button
+        android:id="@+id/addNewborrower"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="49dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="+"
+
+        app:layout_constraintLeft_toRightOf="@+id/textView_borrower"
+        app:layout_constraintRight_toRightOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background" />
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/borrowerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/textView_borrower">
+    </android.support.v7.widget.SearchView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView_Book_Borrower"
+        android:layout_width="match_parent"
+        android:layout_height="577dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/background"
+        app:layout_constraintRight_toRightOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/borrowerSearch">
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>
