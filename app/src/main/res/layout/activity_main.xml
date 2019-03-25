@@ -46,6 +46,11 @@
         android:id="@+id/recycleViewBooks"
         android:layout_width="match_parent"
         android:layout_height="509dp"
+
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        android:orientation="vertical"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/background"
         app:layout_constraintRight_toRightOf="@+id/background"

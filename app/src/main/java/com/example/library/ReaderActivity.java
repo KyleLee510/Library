@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,12 +28,15 @@ import java.util.List;
 
 
 
-public class ReaderActivity extends AppCompatActivity {
+public class ReaderActivity extends AppCompatActivity implements ReadersAdapter.IonSlidingViewClickListener {
 
     private Button skipReader_Button;
+    private Button skipCamera_Button;
     RecyclerView readerRecyclerView;
     SQLiteDatabase ReaderDatabase;
     SetReaderList readerList;
+    SetBorrowerList borrowerList;
+    ReadersAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +52,17 @@ public class ReaderActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        skipCamera_Button = (Button) findViewById(R.id.skipCamera);
+        skipCamera_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReaderActivity.this, CaptureActivity.class);
+                startActivity(intent);
+            }
+        });
         ReaderDatabase = new ReaderBaseHelper(this).getWritableDatabase();
         readerList = new SetReaderList(this, ReaderDatabase);
-        upDateUI();
+        initView();
     }
 
 
@@ -77,10 +89,8 @@ public class ReaderActivity extends AppCompatActivity {
                 String name = name_ET.getText().toString();
                 String sex = sex_ET.getText().toString();
                 Reader newReader = new Reader(id, name, sex);
-
                 readerList.addReader(newReader);
-                upDateUI();
-
+                adapter.addData(readerList.getReaders().size(), newReader);
                 dialog.dismiss();
             }
         });
@@ -94,62 +104,31 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     //更新UI
-    void upDateUI() {
+    void initView() {
         readerRecyclerView = findViewById(R.id.recycleViewReaders);
         readerRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         //设置添加或删除item时的动画，这里使用默认动画
         readerRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        ReaderActivity.ReadersAdapetr madapter = new ReaderActivity.ReadersAdapetr(readerList.getReaders());
+        readerRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); //添加水平分割线
+        adapter = new ReadersAdapter(readerList.getReaders(), this);
         //设置适配器
-        readerRecyclerView.setAdapter(madapter);
+        readerRecyclerView.setAdapter(adapter);
     }
 
-    //recycleView设置
-    //ViewHold容纳View
-    public class ReaderHolder extends RecyclerView.ViewHolder {
-        TextView ID;
-        TextView readerName;
-        TextView sex;
-
-        public ReaderHolder(@NonNull View itemView) {
-            super(itemView);
-            ID = itemView.findViewById(R.id.item_readerID);
-            readerName = itemView.findViewById(R.id.item_readerName);
-            sex = itemView.findViewById(R.id.item_Sex);
-        }
-        private  Reader mreader;
-        public void bind(Reader reader){
-            mreader = reader;
-            ID.setText("ID:" + mreader.ID);
-            readerName.setText("Name:"+ mreader.readerName);
-            sex.setText("Sex:"+ mreader.sex);
-        }
+    @Override
+    public void onItemClick(View view, int position) {
+        //Log.i("test", "点击项：" + position);
     }
 
-    //Adapter负责创建ViewHolder,从模型层获取数据
-    public class ReadersAdapetr extends RecyclerView.Adapter<ReaderActivity.ReaderHolder> {
-        private List<Reader> mreaders;
-        public  ReadersAdapetr(List<Reader> readers) {
-            mreaders = readers;
+    @Override
+    public void onDeleteBtnCilck(View view, int position) {
+        borrowerList = new SetBorrowerList(ReaderActivity.this, ReaderDatabase);
+        Reader reader = readerList.getReaders().get(position);
+        List<Borrower> borrowers = borrowerList.getBorrowersByISBN(reader.ID);
+        if(borrowers != null) {  //检查
+            borrowerList.deleteBorrowerByID(reader.ID);
         }
-
-        @Override
-        public ReaderActivity.ReaderHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.readerrecycleview_layout, parent, false);
-            return new ReaderActivity.ReaderHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(ReaderActivity.ReaderHolder holder, int position) {
-            Reader reader = mreaders.get(position);
-            holder.bind(reader);  //调用holder的数值赋予
-        }
-        //获取List的数量来决定显示数量
-        @Override
-        public int getItemCount() {
-            return mreaders.size();
-        }
+        readerList.deleteReader(reader.ID);
+        adapter.removeData(position, reader);
     }
-
 }

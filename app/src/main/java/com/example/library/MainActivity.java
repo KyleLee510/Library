@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -15,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +30,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.String;
@@ -36,8 +41,13 @@ import java.lang.String;
 //import java.util.ArrayList;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.FieldPosition;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -58,13 +68,15 @@ import java.io.ByteArrayOutputStream;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BooksAdapter.IonSlidingViewClickListener {
 
     private Button skipReader_Button;
+    private Button skipCamera_Button;
     RecyclerView recyclerView;
-    //public Book j = new Book("1234","C语言", "莫言", "10",R.drawable.a123,10,2);
+    private BooksAdapter madapter;
     SQLiteDatabase BookDatabase;
     SetBookList bookList;
+    SetBorrowerList borrowerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +90,18 @@ public class MainActivity extends AppCompatActivity {
                startActivity(intent);
             }
         });
+        skipCamera_Button = (Button) findViewById(R.id.skipCamera);
+        skipCamera_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+                startActivity(intent);
+            }
+        });
+        //Log.d("onCreate()","MainActivity");
         BookDatabase = new ReaderBaseHelper(this).getWritableDatabase();
         bookList = new SetBookList(this, BookDatabase);
-        upDateUI();
+        initView();
     }
 
     public void AddnewBook(View view) {
@@ -101,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String isbn = ISBN_ET.getText().toString();
                 String amount = amount_ET.getText().toString();
-
                 new DownloadUpdate().execute(isbn, amount);
-
                 dialog.dismiss();
             }
         });
@@ -115,74 +134,33 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //更新UI
-    void upDateUI() {
+    //初始化UI
+    void initView() {
         recyclerView = findViewById(R.id.recycleViewBooks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         //设置添加或删除item时的动画，这里使用默认动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        BooksAdapetr madapter = new BooksAdapetr(bookList.getBooks());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); //添加水平分割线
+        madapter = new BooksAdapter(bookList.getBooks(), this);
         //设置适配器
         recyclerView.setAdapter(madapter);
     }
 
-    //ViewHold容纳View
-    public class BookHolder extends RecyclerView.ViewHolder {
-        ImageView bookCover;
-        TextView bookname;
-        TextView isbn;
-        TextView author;
-        TextView price;
-        TextView Inventory;
-        TextView surplus;
-
-        public BookHolder(@NonNull View itemView) {
-            super(itemView);
-            bookCover = itemView.findViewById(R.id.item_cover);
-            bookname = itemView.findViewById(R.id.item_bookname);
-            isbn = itemView.findViewById(R.id.item_ISBN);
-            author = itemView.findViewById(R.id.item_author);
-            price = itemView.findViewById(R.id.item_price);
-            Inventory = itemView.findViewById(R.id.item_inventory);
-            surplus = itemView.findViewById(R.id.item_surplus);
-        }
-        private  Book mbook;
-        public void bind(Book book){
-            mbook = book;
-            bookCover.setImageResource(mbook.bookcover);
-            bookname.setText("BookName:" + mbook.bookname);
-            isbn.setText("ISBN:" + mbook.ISBN);
-            author.setText("Author:" + mbook.author);
-            price.setText("Price:" + mbook.price);
-            Inventory.setText("Inventor:" + String.valueOf(mbook.inventory));
-            surplus.setText("Surplus:" + String.valueOf(mbook.surplus));
-        }
+    @Override
+    public void onItemClick(View view, int position) {
+        //Log.i("test", "点击项：" + position);
     }
 
-    //Adapter负责创建ViewHolder,从模型层获取数据
-    public class BooksAdapetr extends RecyclerView.Adapter<BookHolder> {
-        private List<Book> mbooks;
-        public  BooksAdapetr(List<Book> books) {
-            mbooks = books;
+    @Override
+    public void onDeleteBtnCilck(View view, int position) {
+        borrowerList = new SetBorrowerList(MainActivity.this, BookDatabase);
+        Book book = bookList.getBooks().get(position);
+        List<Borrower> borrowers = borrowerList.getBorrowersByISBN(book.ISBN);
+        if(borrowers != null) {     //删除对应的借阅记录
+            borrowerList.deleteBorrowerByISBN(book.ISBN);
         }
-
-        @Override
-        public BookHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookrecycleyview_layout, parent, false);
-            return new BookHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(BookHolder holder, int position) {
-            Book book = mbooks.get(position);
-            holder.bind(book);  //调用holder的数值赋予
-        }
-        //获取List的数量来决定显示数量
-        @Override
-        public int getItemCount() {
-            return mbooks.size();
-        }
-
+        bookList.deleteBook(book.ISBN);
+        madapter.removeData(position, book);
     }
 
     //解析用户提供的ISBN，
@@ -201,15 +179,26 @@ public class MainActivity extends AppCompatActivity {
                 // Nothing to do.
                 return null;
             }
-            //Log.d("要开始GSON？","come");
             reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line = " ";
+            while ((line = reader.readLine()) != null){
+                buffer.append(line);
+            }
+            line = buffer.toString();
+            if(line.length() == 42) {
+                //Toast();
+                //查询书籍不存在
+                return null;
+            }
+
             //Json 的读取
             GsonBuilder gsonBuilder = new GsonBuilder(); //声明Gson
             Gson gson = gsonBuilder.create();
-            NetBook netBook = gson.fromJson(reader, NetBook.class);
+            NetBook netBook = gson.fromJson(line, NetBook.class);
             //getImage(netBook.PhotoUrl);  //下载对应的图片至drawable
             int nums = Integer.valueOf(amount);
-            Book book = new Book(netBook.ISBN, netBook.BookName, netBook.Author, netBook.Price, R.drawable.a123, nums, 10);
+            Book book = new Book(netBook.ISBN, netBook.BookName, netBook.Author, netBook.Price, netBook.PhotoUrl, nums, nums);
             return book;
         }catch (MalformedURLException e) {
             Log.d("1","kong");
@@ -222,62 +211,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.d("fail","come");
-        return null;
-    }
-
-    public void getImage(String PhotoURL) {
-        String stringUrl = "http://isbn.szmesoft.com/ISBN/GetBookPhoto?ID=" + PhotoURL;
-        String savePath;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(stringUrl);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            //通过输入流获取图片数据
-            InputStream inputStream = urlConnection.getInputStream();
-            //得到图片的二进制数据，以二进制封装得到数据，具有通用性
-            byte[] data = readInputStream(inputStream);
-            File imageFile = new File("/Library/app/src/main/res/drawable" + PhotoURL + ".png");
-            //创建输出流
-            FileOutputStream outStream = new FileOutputStream(imageFile);
-            //写入数据
-            outStream.write(data);
-            //关闭输出流
-            outStream.close();
-        }catch (MalformedURLException e) {
-            Log.d("1","kong");
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            Log.d("2","kong");
-            e.printStackTrace();
-        } catch (IOException e) {
-            Log.d("3","kong");
-            e.printStackTrace();
-        }
-
-    }
-
-    public static byte[] readInputStream(InputStream inStream) {
-        try {
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-            //创建一个Buffer字符串
-            byte[] buffer = new byte[1024];
-            //每次读取的字符串长度，如果为-1，代表全部读取完毕
-            int len = 0;
-            //使用一个输入流从buffer里把数据读取出来
-            while( (len=inStream.read(buffer)) != -1 ){
-                //用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
-                outStream.write(buffer, 0, len);
-            }
-            //关闭输入流
-            inStream.close();
-            //把outStream里的数据写入内存
-            return outStream.toByteArray();
-
-        }
-        catch (IOException e) {
-            Log.d("3","kong");
-            e.printStackTrace();
-        }
         return null;
     }
 
@@ -313,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     return null;
                 }
                 else {
-                    bookList.addBook(newBook);
+                    bookList.addBook(newBook); //添加到数据库
                 }
                 return newBook;
             }
@@ -332,11 +265,9 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             else {
-                upDateUI();
+                madapter.addData(bookList.getBooks().size(), newBook); //添加到recycleview
+                //upDateUI();
             }
         }
-
     }
-
-
 }

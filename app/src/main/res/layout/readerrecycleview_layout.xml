@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<com.example.library.SlidingButtonView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="70dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TableLayout
+        android:id="@+id/readerContent_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="3">
@@ -29,5 +35,29 @@
             android:layout_height="wrap_content"
             android:textSize="25dp"/>
     </TableLayout>
+        <LinearLayout
+            android:id="@+id/book_buttonTexts_content"
+            android:layout_width="160dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/reader_set"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/readerContent_layout"
+                android:background="#A9A9A9"
+                android:gravity="center"
+                android:text="Check"
+                android:textColor="#DDFFFFFF" />
+            <TextView
+                android:id="@+id/reader_delete"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/reader_set"
+                android:background="#FF0000"
+                android:gravity="center"
+                android:text="Delete"
+                android:textColor="#DDFFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</com.example.library.SlidingButtonView>

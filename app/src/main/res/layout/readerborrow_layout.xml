@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/backBooks"
+        android:id="@+id/backReaders"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Back"
@@ -23,21 +23,21 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="@+id/backBooks"
-        app:layout_constraintRight_toLeftOf="@+id/addNewbook"
+        app:layout_constraintLeft_toLeftOf="@+id/backReaders"
+        app:layout_constraintRight_toLeftOf="@+id/addNew_borrow_Book"
         app:layout_constraintTop_toTopOf="@+id/background"
         app:layout_goneMarginLeft="0dp"
         app:layout_goneMarginRight="0dp" />
 
     <Button
-        android:id="@+id/addNewborrowBook"
+        android:id="@+id/addNew_borrow_Book"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="49dp"
         android:layout_height="40dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="+"
-
+        android:onClick="AddnewBorrowBook"
         app:layout_constraintLeft_toRightOf="@+id/textView_borrowBooks"
         app:layout_constraintRight_toRightOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
@@ -51,7 +51,7 @@
     </android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleViewBorrow_books"
+        android:id="@+id/recycleView_Borrow_books"
         android:layout_width="match_parent"
         android:layout_height="577dp"
         app:layout_constraintHorizontal_bias="0.0"

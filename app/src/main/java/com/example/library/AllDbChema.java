@@ -25,11 +25,15 @@ public class AllDbChema {
     public static final class BorrowTable {
         public static final String NAME = "borrow";
         public static final class Cols {
+            public static final String OnlyKey = "onlyKey"; //主键，由ID+ISBN+BorrowDate构成
             public static final String ID = "id";       //作为外键
             public static final String ISBN = "isbn";  // 作为外键
             public static final String BorrowDate = "borrowDate";
             public static final String ReturnDate = "returnDate";
             public static final String isReturn = "isReturn";
+            public static final String ReaderName = "readerName";
+            public static final String Sex = "sex";
+            public static final String BookName = "bookName";
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,11 @@ public class SetReaderList {
         ContentValues values = getContentValues(reader);
         mReaderDatabase.insert(ReaderTable.NAME, null, values);
     }
+    //删除读者
+    public void deleteReader(String ID) {
+        String[] whereArgs = new String[] {ID};
+        mReaderDatabase.delete(ReaderTable.NAME, ReaderTable.Cols.ID + "= ?" , whereArgs);
+    }
 
     public class ReaderCursorWrapper extends CursorWrapper {
         public ReaderCursorWrapper(Cursor cursor) {
@@ -45,6 +51,7 @@ public class SetReaderList {
         }
     }
 
+
     private SetReaderList.ReaderCursorWrapper queryReaders(String whereClause, String[] whereArgs) {
         Cursor cursor = mReaderDatabase.query(
                 ReaderTable.NAME,
@@ -59,7 +66,6 @@ public class SetReaderList {
     }
     public List<Reader> getReaders() {
         List<Reader> readers = new ArrayList<>();
-
         SetReaderList.ReaderCursorWrapper cursor = queryReaders(null, null);
         try {
             cursor.moveToFirst();
@@ -72,4 +78,25 @@ public class SetReaderList {
         }
         return readers;
     }
+    //通过读者ID进行数据查询
+    public Reader queryReader(String ID) {
+        String sql =  ReaderTable.Cols.ID + " = ?";
+        //String sql = "select * from readers where id=? ";
+        String[] whereArgs = new String[] {ID};
+        SetReaderList.ReaderCursorWrapper cursor = queryReaders(sql, whereArgs);
+        try {
+            //cursor.moveToFirst();
+            while (cursor.moveToNext()) {
+                Reader reader = cursor.getReader();
+                Log.d("擦", "ogg");
+                return reader;
+            }
+            Log.d("好", "ogg");
+            return null;
+        } finally {
+            Log.d("再见", "CCC");
+            cursor.close();
+        }
+    }
 }
+

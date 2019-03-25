@@ -34,25 +34,32 @@ public class ReaderBaseHelper extends SQLiteOpenHelper {
                     + BookTable.Cols.BookName  + ", "
                     + BookTable.Cols.Author + ", "
                     + BookTable.Cols.Price +", "
-                    + BookTable.Cols.BookCover + " integer, "
+                    + BookTable.Cols.BookCover + ", "
                     + BookTable.Cols.Inventory + " integer, "
                     + BookTable.Cols.Surplus + " integer" +
                 ")"
         );
 
-        //创建借阅表, 外键分别为读者ID和ISBN的ID
+        //创建借阅表, 外键分别为读者ID和ISBN的ID,不用外键找匹配就是
         db.execSQL("create table " + BorrowTable.NAME +
                 "("
-                    + "_id integer primary key autoincrement, "
-                    + BorrowTable.Cols.BorrowDate + "datetime,"
-                    + BorrowTable.Cols.isReturn + "boolean,"
-                    + BorrowTable.Cols.ReturnDate + "datetime,"
-                    + "FOREIGN KEY " + "(" + BorrowTable.Cols.ID + ") REFERENCES "
-                        + ReaderTable.NAME + "(" + ReaderTable.Cols.ID + ")"+ ","
-                    + "FOREIGN KEY " + "(" + BorrowTable.Cols.ISBN + ") REFERENCES "
-                        + BookTable.NAME + "(" + BookTable.Cols.ISBN + ")"+
+                    + BorrowTable.Cols.OnlyKey  + " NOT NULL primary key,"
+                    + BorrowTable.Cols.ID + ","
+                    + BorrowTable.Cols.ISBN + ","
+                    + BorrowTable.Cols.BorrowDate + " ,"
+                    + BorrowTable.Cols.isReturn + ","
+                    + BorrowTable.Cols.ReturnDate + " ,"
+                    + BorrowTable.Cols.ReaderName + ","
+                    + BorrowTable.Cols.Sex + ","
+                    + BorrowTable.Cols.BookName +
                 ")"
         );
+        /*
+         + "_num integer primary key autoincrement, "
+        + "FOREIGN KEY " + "(" + BorrowTable.Cols.ID + ") REFERENCES "
+                + ReaderTable.NAME + "(" + ReaderTable.Cols.ID + ")"+ ","
+                + "FOREIGN KEY " + "(" + BorrowTable.Cols.ISBN + ") REFERENCES "
+                + BookTable.NAME + "(" + BookTable.Cols.ISBN + ")"+     */
 
     }
 

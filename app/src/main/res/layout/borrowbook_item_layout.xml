@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="3">
+        <TextView
+            android:id="@+id/item_borrowBookName"
+            android:text="BookName:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"/>
+        <TextView
+            android:id="@+id/item_borrowBook_borrowDate"
+            android:text="BorrowDate:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"/>
+        <TableRow>
+        <TextView
+            android:id="@+id/item_borrowBook_returnDate"
+            android:text="ReturnDate:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"/>
+            <Button
+                android:id="@+id/item_Reader_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Return"
+                android:textSize="15sp" />
+         </TableRow>
+    </TableLayout>
+
+</LinearLayout>

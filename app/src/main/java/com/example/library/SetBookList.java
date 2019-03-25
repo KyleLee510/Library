@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.example.library.AllDbChema.*;
 
 import java.util.ArrayList;
@@ -36,6 +38,11 @@ public class SetBookList {
         mBookDatabase.insert(BookTable.NAME, null, values);
     }
 
+    public void deleteBook(String ISBN) {
+        String[] whereArgs = new String[] {ISBN};
+        mBookDatabase.delete(BookTable.NAME, BookTable.Cols.ISBN + "= ?" , whereArgs);
+    }
+
     public class BookCursorWrapper extends CursorWrapper {
         public BookCursorWrapper(Cursor cursor) {
             super(cursor);
@@ -46,7 +53,7 @@ public class SetBookList {
             String bookName = getString(getColumnIndex(BookTable.Cols.BookName)); //2
             String author = getString(getColumnIndex(BookTable.Cols.Author));  //3
             String price = getString(getColumnIndex(BookTable.Cols.Price)); //4
-            int bookcover = getInt(getColumnIndex(BookTable.Cols.BookCover)); //5
+            String bookcover = getString(getColumnIndex(BookTable.Cols.BookCover)); //5
             int inventory = getInt(getColumnIndex(BookTable.Cols.Inventory)); //6
             int surplus = getInt(getColumnIndex(BookTable.Cols.Surplus));  //7
             Book book = new Book(isbn, bookName, author, price, bookcover, inventory, surplus);
@@ -80,5 +87,45 @@ public class SetBookList {
             cursor.close();
         }
         return books;
+    }
+
+    //通过书籍ISBN进行数据查询
+    public Book queryBook(String ISBN) {
+        String sql =  BookTable.Cols.ISBN + " = ?";
+        //String sql = "select * from readers where id=? ";
+        String[] whereArgs = new String[] {ISBN};
+        BookCursorWrapper cursor = queryBooks(sql, whereArgs);
+        List<Reader> readers = new ArrayList<>();
+        try {
+
+            while (cursor.moveToNext()) {
+                Book book = cursor.getBook();
+                return book;
+            }
+            return null;
+        } finally {
+            Log.d("再见", "CCC");
+            cursor.close();
+        }
+    }
+
+
+
+    public void upDateSurplus(String isbn, boolean isReturn) {
+        Book book = queryBook(isbn);
+        ContentValues values = new ContentValues();
+        String[] whereArgs = new String[] {isbn};
+        if(!isReturn) {
+            try {
+                values.put(BookTable.Cols.Surplus, book.surplus - 1);
+                mBookDatabase.update(BookTable.NAME, values, BookTable.Cols.ISBN + " = ?",whereArgs);
+            } catch (Exception e) { }
+        }
+        else {
+            try {
+                values.put(BookTable.Cols.Surplus, book.surplus + 1);
+                mBookDatabase.update(BookTable.NAME, values, BookTable.Cols.ISBN + " = ?" ,whereArgs);
+            } catch (Exception e) { }
+        }
     }
 }

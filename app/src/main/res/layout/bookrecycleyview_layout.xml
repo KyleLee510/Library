@@ -1,66 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.library.SlidingButtonView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp">
-
-    <ImageView
-        android:id="@+id/item_cover"
-        android:layout_width="110dp"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/a123" />
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:stretchColumns="5"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/item_bookname"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/bookContent_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bookname"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:textSize="15dp"/>
-        <TextView
-            android:id="@+id/item_ISBN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ISBN:"/>
-        <TextView
-            android:id="@+id/item_author"
-            android:text="Author:"
-            android:textColor="@android:color/darker_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TextView
-            android:id="@+id/item_price"
-            android:text="Price:"
-            android:textColor="@android:color/darker_gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <TableRow>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/item_cover"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/a123" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center_vertical"
+                android:stretchColumns="5"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/item_bookname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bookname"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp"/>
+                <TextView
+                    android:id="@+id/item_ISBN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ISBN:"/>
+                <TextView
+                    android:id="@+id/item_author"
+                    android:text="Author:"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/item_price"
+                    android:text="Price:"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TableRow>
+                    <TextView
+                        android:id="@+id/item_inventory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Inventory:"
+                        android:textColor="@android:color/darker_gray" />
+                    <TextView
+                        android:id="@+id/item_surplus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="surplus:"
+                        android:textColor="@android:color/darker_gray" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/book_buttonTexts_content"
+            android:layout_width="160dp"
+            android:layout_height="match_parent">
             <TextView
-                android:id="@+id/item_inventory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inventory:"
-                android:textColor="@android:color/darker_gray" />
-
+                android:id="@+id/book_set"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/bookContent_layout"
+                android:background="#A9A9A9"
+                android:gravity="center"
+                android:text="Check"
+                android:textColor="#DDFFFFFF" />
             <TextView
-                android:id="@+id/item_surplus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="surplus:"
-                android:textColor="@android:color/darker_gray" />
-        </TableRow>
-
-    </TableLayout>
-
-
-</LinearLayout>
+                android:id="@+id/book_delete"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/book_set"
+                android:background="#FF0000"
+                android:gravity="center"
+                android:text="Delete"
+                android:textColor="#DDFFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+</com.example.library.SlidingButtonView>

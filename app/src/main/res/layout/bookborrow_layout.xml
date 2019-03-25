@@ -37,7 +37,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="+"
-
+        android:onClick="AddnewBorrower"
         app:layout_constraintLeft_toRightOf="@+id/textView_borrower"
         app:layout_constraintRight_toRightOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
