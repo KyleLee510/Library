@@ -87,6 +87,8 @@ public class CaptureActivity extends Activity implements Callback{
         cancelScanButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(CaptureActivity.this, MainActivity.class );
+                startActivity(intent);
                 CaptureActivity.this.finish();
                 overridePendingTransition(0, R.anim.base_slide_right_out);
             }

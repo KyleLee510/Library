@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/add_borrower_background">
+    android:id="@+id/add_borrower_background"
+    android:background="#FFFAF0">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
@@ -26,11 +27,13 @@
                 android:layout_weight="1"
                 android:text="ID:"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textSize="25dp"
+                android:textColor="#1C86EE"/>
             <EditText
                 android:id="@+id/borrowerID_Edit"
                 android:layout_width="250dp"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:textColor="#1C86EE"/>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -45,12 +48,14 @@
             android:id="@+id/borrowerSumbit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="submit"/>
+            android:text="submit"
+            android:textColor="#1C86EE"/>
         <Button
             android:id="@+id/borrowerCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cancel"/>
+            android:text="cancel"
+            android:textColor="#1C86EE"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

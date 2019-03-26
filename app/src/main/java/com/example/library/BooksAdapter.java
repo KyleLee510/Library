@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,13 +16,15 @@ import com.bumptech.glide.Glide;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookHolder> implements SlidingButtonView.IonSlidingButtonListener {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookHolder> implements SlidingButtonView.IonSlidingButtonListener  {
     private Context mContext;
     private List<Book> mbooks;
     private IonSlidingViewClickListener mIDeleteBtnClickListener;
     private SlidingButtonView mMenu = null;
+
 
     public  BooksAdapter(List<Book> books, Context context) {
         mbooks = books;
@@ -60,6 +64,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookHolder> 
                 Intent intent = new Intent(mContext, BookBorrowActivity.class);
                 intent.putExtra("ISBN", book.ISBN);
                 mContext.startActivity(intent);
+
             }
         });
 
@@ -92,7 +97,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookHolder> 
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
-
 
     public class BookHolder extends RecyclerView.ViewHolder {
         ImageView bookCover;

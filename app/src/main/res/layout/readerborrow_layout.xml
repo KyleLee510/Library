@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFAF0">
 
     <Button
         android:id="@+id/backReaders"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Back"
+        android:textColor="#1C86EE"
         app:layout_constraintTop_toTopOf="@+id/background"
         app:layout_constraintLeft_toLeftOf="@+id/background"/>
 
@@ -23,6 +25,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#1C86EE"
         app:layout_constraintLeft_toLeftOf="@+id/backReaders"
         app:layout_constraintRight_toLeftOf="@+id/addNew_borrow_Book"
         app:layout_constraintTop_toTopOf="@+id/background"
@@ -37,27 +40,20 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="+"
+        android:textColor="#1C86EE"
         android:onClick="AddnewBorrowBook"
         app:layout_constraintLeft_toRightOf="@+id/textView_borrowBooks"
         app:layout_constraintRight_toRightOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/borrowBookSearch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/textView_borrowBooks">
-    </android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView_Borrow_books"
         android:layout_width="match_parent"
-        android:layout_height="577dp"
+        android:layout_height="616dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/background"
         app:layout_constraintRight_toRightOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/borrowBookSearch">
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/textView_borrowBooks"></android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

@@ -5,9 +5,10 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:background="#FFFAF0">
         <ImageView
-            android:id="@+id/item_cover"
+            android:id="@+id/scan_cover"
             android:layout_width="110dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
@@ -25,24 +26,25 @@
                 android:layout_height="wrap_content"
                 android:text=" Bookname"
                 android:textStyle="bold"
-                android:textColor="@android:color/black"
+                android:textColor="#1C86EE"
                 android:textSize="15dp"/>
             <TextView
                 android:id="@+id/scan_ISBN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#1C86EE"
                 android:text=" ISBN:"/>
             <TextView
                 android:id="@+id/scan_author"
                 android:text=" Author:"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="#1C86EE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
             <TextView
                 android:id="@+id/scan_price"
                 android:text=" Price:"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="#1C86EE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -52,21 +54,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" Inventory:"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="#1C86EE" />
 
                 <EditText
                     android:id="@+id/Scan_amount_Edit"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:inputType="number"
-                    android:textColor="@android:color/darker_gray" />
+                    android:inputType="numberSigned"
+                    android:textColor="#1C86EE" />
                 <TextView
                     android:id="@+id/item_isExist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="existing"/>
+                    android:text="existing"
+                    android:textColor="#1C86EE"/>
             </TableRow>
 
         </TableLayout>

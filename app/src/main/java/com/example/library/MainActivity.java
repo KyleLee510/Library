@@ -22,13 +22,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 //import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.*;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +71,7 @@ import java.io.ByteArrayOutputStream;
 
 
 
-public class MainActivity extends AppCompatActivity implements BooksAdapter.IonSlidingViewClickListener {
+public class MainActivity extends AppCompatActivity implements BooksAdapter.IonSlidingViewClickListener  {
 
     private Button skipReader_Button;
     private Button skipCamera_Button;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
     SQLiteDatabase BookDatabase;
     SetBookList bookList;
     SetBorrowerList borrowerList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
             public void onClick(View v) {
                Intent intent = new Intent(MainActivity.this, ReaderActivity.class);
                startActivity(intent);
+               finish();
             }
         });
         skipCamera_Button = (Button) findViewById(R.id.skipCamera);
@@ -96,12 +101,13 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
                 startActivity(intent);
+
             }
         });
-        //Log.d("onCreate()","MainActivity");
         BookDatabase = new ReaderBaseHelper(this).getWritableDatabase();
         bookList = new SetBookList(this, BookDatabase);
         initView();
+
     }
 
     public void AddnewBook(View view) {
@@ -132,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
                 dialog.dismiss();
             }
         });
+
     }
 
     //初始化UI
@@ -141,10 +148,15 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
         //设置添加或删除item时的动画，这里使用默认动画
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); //添加水平分割线
+
         madapter = new BooksAdapter(bookList.getBooks(), this);
         //设置适配器
         recyclerView.setAdapter(madapter);
     }
+
+
+
+
 
     @Override
     public void onItemClick(View view, int position) {
@@ -161,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
         }
         bookList.deleteBook(book.ISBN);
         madapter.removeData(position, book);
+        initView();
     }
 
     //解析用户提供的ISBN，
@@ -196,7 +209,6 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
             GsonBuilder gsonBuilder = new GsonBuilder(); //声明Gson
             Gson gson = gsonBuilder.create();
             NetBook netBook = gson.fromJson(line, NetBook.class);
-            //getImage(netBook.PhotoUrl);  //下载对应的图片至drawable
             int nums = Integer.valueOf(amount);
             Book book = new Book(netBook.ISBN, netBook.BookName, netBook.Author, netBook.Price, netBook.PhotoUrl, nums, nums);
             return book;
@@ -270,4 +282,6 @@ public class MainActivity extends AppCompatActivity implements BooksAdapter.IonS
             }
         }
     }
+
+
 }

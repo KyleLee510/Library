@@ -5,7 +5,8 @@
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#FFFAF0">
 
     <TextView
         android:id="@+id/textView_book"
@@ -15,6 +16,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="#1C86EE"
         app:layout_constraintLeft_toLeftOf="@+id/background"
         app:layout_constraintRight_toLeftOf="@+id/addNewbook"
         app:layout_constraintTop_toTopOf="@+id/background"
@@ -29,32 +31,26 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="+"
+        android:textColor="#1C86EE"
         android:onClick="AddnewBook"
         app:layout_constraintLeft_toRightOf="@+id/textView_book"
         app:layout_constraintRight_toRightOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/bookSearch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/textView_book">
-    </android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleViewBooks"
         android:layout_width="match_parent"
-        android:layout_height="509dp"
+        android:layout_height="548dp"
 
+        android:orientation="vertical"
         android:overScrollMode="never"
         android:scrollbars="vertical"
-        android:orientation="vertical"
 
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/background"
         app:layout_constraintRight_toRightOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/bookSearch">
+        app:layout_constraintTop_toBottomOf="@+id/textView_book">
     </android.support.v7.widget.RecyclerView>
 
     <android.support.constraint.ConstraintLayout
@@ -70,6 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="36dp"
             android:text="B"
+            android:textColor="#1C86EE"
+            android:background="#36648B"
             app:layout_constraintBottom_toTopOf="@+id/skipChoose"
             app:layout_constraintLeft_toLeftOf="@+id/skipChoose"
             app:layout_constraintTop_toBottomOf="@+id/skipChoose"
@@ -80,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Books"
+            android:textColor="#1C86EE"
             app:layout_constraintLeft_toRightOf="@id/skipBook"
             app:layout_constraintRight_toLeftOf="@id/skipBook"
             app:layout_constraintTop_toBottomOf="@id/skipBook" />
@@ -89,7 +88,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="44dp"
-            android:text="D"
+            android:text="C"
+            android:textColor="#1C86EE"
+            android:background="#36648B"
             app:layout_constraintBottom_toTopOf="@+id/skipChoose"
             app:layout_constraintLeft_toRightOf="@id/skipBook"
             app:layout_constraintTop_toBottomOf="@+id/skipChoose"
@@ -100,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Camera"
+            android:textColor="#1C86EE"
             app:layout_constraintLeft_toRightOf="@+id/skipCamera"
             app:layout_constraintRight_toLeftOf="@+id/skipCamera"
             app:layout_constraintTop_toBottomOf="@+id/skipCamera" />
@@ -108,7 +110,9 @@
             android:id="@+id/skipReader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="C"
+            android:text="R"
+            android:textColor="#1C86EE"
+            android:background="#36648B"
             app:layout_constraintBottom_toTopOf="@+id/skipChoose"
             app:layout_constraintHorizontal_bias="0.705"
             app:layout_constraintLeft_toRightOf="@+id/skipCamera"
@@ -120,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Readers"
+            android:textColor="#1C86EE"
             app:layout_constraintLeft_toRightOf="@+id/skipReader"
             app:layout_constraintRight_toLeftOf="@+id/skipReader"
             app:layout_constraintTop_toBottomOf="@+id/skipReader" />

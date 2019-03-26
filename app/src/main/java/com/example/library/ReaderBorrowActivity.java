@@ -42,6 +42,7 @@ public class ReaderBorrowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ReaderBorrowActivity.this, ReaderActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         Intent intent = getIntent();

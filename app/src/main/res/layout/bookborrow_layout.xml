@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFAF0">
 
     <Button
         android:id="@+id/backBooks"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Back"
+        android:textColor="#1C86EE"
         app:layout_constraintTop_toTopOf="@+id/background"
         app:layout_constraintLeft_toLeftOf="@+id/background"/>
 
@@ -20,6 +22,7 @@
         android:layout_width="356dp"
         android:layout_height="40dp"
         android:text="the Borrower"
+        android:textColor="#1C86EE"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -37,27 +40,21 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:text="+"
+        android:textColor="#1C86EE"
         android:onClick="AddnewBorrower"
         app:layout_constraintLeft_toRightOf="@+id/textView_borrower"
         app:layout_constraintRight_toRightOf="@+id/background"
         app:layout_constraintTop_toTopOf="@+id/background" />
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/borrowerSearch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:layout_constraintLeft_toLeftOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/textView_borrower">
-    </android.support.v7.widget.SearchView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView_Book_Borrower"
         android:layout_width="match_parent"
-        android:layout_height="577dp"
+        android:layout_height="620dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/background"
         app:layout_constraintRight_toRightOf="@+id/background"
-        app:layout_constraintTop_toBottomOf="@+id/borrowerSearch">
+        app:layout_constraintTop_toBottomOf="@+id/textView_borrower">
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

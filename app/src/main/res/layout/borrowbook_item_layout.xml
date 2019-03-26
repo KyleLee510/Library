@@ -2,7 +2,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#FFFAF0">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -13,10 +14,12 @@
             android:text="BookName:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#1C86EE"
             android:textSize="25dp"/>
         <TextView
             android:id="@+id/item_borrowBook_borrowDate"
             android:text="BorrowDate:"
+            android:textColor="#1C86EE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"/>
@@ -24,6 +27,7 @@
         <TextView
             android:id="@+id/item_borrowBook_returnDate"
             android:text="ReturnDate:"
+            android:textColor="#1C86EE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"/>
@@ -33,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Return"
+                android:textColor="#1C86EE"
                 android:textSize="15sp" />
          </TableRow>
     </TableLayout>

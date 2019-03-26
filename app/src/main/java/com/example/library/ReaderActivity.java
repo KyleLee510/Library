@@ -50,6 +50,7 @@ public class ReaderActivity extends AppCompatActivity implements ReadersAdapter.
             public void onClick(View v) {
                 Intent intent = new Intent(ReaderActivity.this, MainActivity.class );
                 startActivity(intent);
+                finish();
             }
         });
         skipCamera_Button = (Button) findViewById(R.id.skipCamera);
@@ -130,5 +131,8 @@ public class ReaderActivity extends AppCompatActivity implements ReadersAdapter.
         }
         readerList.deleteReader(reader.ID);
         adapter.removeData(position, reader);
+
+        initView();
+
     }
 }

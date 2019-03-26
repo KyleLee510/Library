@@ -95,7 +95,6 @@ public class SetBookList {
         //String sql = "select * from readers where id=? ";
         String[] whereArgs = new String[] {ISBN};
         BookCursorWrapper cursor = queryBooks(sql, whereArgs);
-        List<Reader> readers = new ArrayList<>();
         try {
 
             while (cursor.moveToNext()) {
@@ -128,4 +127,17 @@ public class SetBookList {
             } catch (Exception e) { }
         }
     }
+
+    public void upDateInventory(String isbn, int inventory) {
+        Book book = queryBook(isbn);
+        ContentValues values = new ContentValues();
+        String[] whereArgs = new String[] {isbn};
+        try {
+            values.put(BookTable.Cols.Surplus, book.surplus + inventory);
+            values.put(BookTable.Cols.Inventory, book.inventory + inventory);
+            mBookDatabase.update(BookTable.NAME, values, BookTable.Cols.ISBN + " = ?", whereArgs);
+        } catch (Exception e) { }
+
+    }
+
 }

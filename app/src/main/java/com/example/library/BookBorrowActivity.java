@@ -49,6 +49,7 @@ public class BookBorrowActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BookBorrowActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         Intent intent = getIntent();

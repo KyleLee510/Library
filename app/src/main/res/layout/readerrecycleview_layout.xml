@@ -2,7 +2,8 @@
 <com.example.library.SlidingButtonView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="70dp"
+    android:background="#FFFAF0">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -19,25 +20,28 @@
                 android:layout_height="wrap_content"
                 android:text="ID:1234"
                 android:textSize="25dp"
+                android:textColor="#1C86EE"
                 />
             <TextView
                 android:id="@+id/item_readerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name:"
+                android:textColor="#1C86EE"
                 android:textSize="25dp"
                 android:layout_marginLeft="60dp"/>
         </TableRow>
         <TextView
             android:id="@+id/item_Sex"
             android:text="Sex:"
+            android:textColor="#1C86EE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"/>
     </TableLayout>
         <LinearLayout
             android:id="@+id/book_buttonTexts_content"
-            android:layout_width="160dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/reader_set"
